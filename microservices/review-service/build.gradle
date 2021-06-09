@@ -1,0 +1,53 @@
+buildscript {
+	ext {
+		springBootVersion = '2.3.2.RELEASE'
+		mapstructVersion = '1.4.2.Final'
+	}
+	repositories {
+		mavenCentral()
+		maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'se.magnus.microservices.core.review'
+version = '1.0.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "Hoxton.SR8")
+}
+
+dependencies {
+	implementation project(':api')
+	implementation project(':util')
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-webflux')
+	implementation ("io.springfox:springfox-boot-starter")
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
+	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation('com.h2database:h2')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('io.projectreactor:reactor-test')
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
