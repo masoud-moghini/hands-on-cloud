@@ -7,6 +7,18 @@ services:
       - "27017:27017"
     command: mongod --smallfiles
 
+  rabbitmq:
+    image: rabbitmq:3.7.8-management
+    mem_limit: 350m
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "status" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   postgres:
     image: postgres
     restart: always

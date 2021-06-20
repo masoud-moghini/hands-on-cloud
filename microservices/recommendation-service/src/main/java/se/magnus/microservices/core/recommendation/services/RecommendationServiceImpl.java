@@ -6,15 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import se.magnus.api.core.recommendation.Recommendation;
 import se.magnus.api.core.recommendation.RecommendationService;
 import se.magnus.microservices.core.recommendation.persistence.RecommendationEntity;
 import se.magnus.microservices.core.recommendation.repository.RecommendationRepository;
 import se.magnus.util.exceptions.InvalidInputException;
 import se.magnus.util.http.ServiceUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class RecommendationServiceImpl implements RecommendationService {
@@ -38,11 +36,15 @@ public class RecommendationServiceImpl implements RecommendationService {
     public Recommendation createRecommendation(Recommendation body) {
         try {
             RecommendationEntity entity = mapper.apiToEntity(body);
-            RecommendationEntity newEntity = repository.save(entity);
+            Mono<Recommendation> newEntity = repository.save(entity)
+                    .log()
+                    .onErrorMap(
+                            DuplicateKeyException.class,
+                            ex -> new InvalidInputException("Duplicate key, Product Id: " + body.getProductId() + ", Recommendation Id:" + body.getRecommendationId()))
+                    .map(e -> mapper.entityToApi(e));
 
             LOG.debug("createRecommendation: created a recommendation entity: {}/{}", body.getProductId(), body.getRecommendationId());
-            return mapper.entityToApi(newEntity);
-
+            return newEntity.block();
         } catch (DuplicateKeyException dke) {
             throw new InvalidInputException("Duplicate key, Product Id: " + body.getProductId() + ", Recommendation Id:" + body.getRecommendationId());
         }

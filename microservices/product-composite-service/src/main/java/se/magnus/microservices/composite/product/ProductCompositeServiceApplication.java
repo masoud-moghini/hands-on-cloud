@@ -8,14 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.config.EnableWebFlux;
 import se.magnus.microservices.composite.product.services.ProductCompositeIntegration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
 
 import java.util.LinkedHashMap;
 
@@ -75,9 +73,13 @@ public class ProductCompositeServiceApplication {
 	}
 
 	@Bean
-	ReactiveHealthContributorRegistry coreServices(){
-		ReactiveHealthContributorRegistry registry = new DefaultReactiveHealthContributorRegistry(new LinkedHashMap<>());
-		registry.registerContributor("product",()->integration.getProductHealth());
+	CompositeReactiveHealthIndicator coreServices(){
+		ReactiveHealthIndicatorRegistry registry = new
+				DefaultReactiveHealthIndicatorRegistry(new LinkedHashMap<>());
+		registry.register("product", () -> integration.getProductHealth());
+		registry.register("recommendation", () -> integration.getRecommendationHealth());
+		registry.register("review", () -> integration.getReviewHealth());
+		return new CompositeReactiveHealthIndicator(healthAggregator, registry);
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(ProductCompositeServiceApplication.class, args);

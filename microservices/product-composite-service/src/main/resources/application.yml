@@ -65,6 +65,10 @@ api:
 server.port: 7000
 server.error.include-message: always
 
+management.endpoint.health.show-details: "ALWAYS"
+management.endpoints.web.exposure.include: "*"
+
+
 
 spring.cloud.stream:
   defaultBinder: rabbit
