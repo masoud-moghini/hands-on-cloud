@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import se.magnus.api.core.product.Product;
 import se.magnus.api.core.product.ProductService;
-import se.magnus.microservices.core.product.persistance.ProductEntity;
-import se.magnus.microservices.core.product.repository.ProductRepository;
+import se.magnus.microservices.core.product.persistance.*;
 import se.magnus.util.exceptions.InvalidInputException;
 import se.magnus.util.exceptions.NotFoundException;
 import se.magnus.util.http.ServiceUtil;
@@ -22,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
     private final ServiceUtil serviceUtil;
     private ProductRepository repository;
     private final ProductMapper mapper;
+
     @Autowired
     public ProductServiceImpl(
             ServiceUtil serviceUtil,

@@ -15,7 +15,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import se.magnus.api.core.product.Product;
 import se.magnus.api.core.recommendation.Recommendation;
 import se.magnus.api.event.Event;
-import se.magnus.microservices.core.recommendation.repository.RecommendationRepository;
+import se.magnus.microservices.core.recommendation.persistence.RecommendationRepository;
 import se.magnus.util.exceptions.InvalidInputException;
 
 import static org.junit.Assert.fail;

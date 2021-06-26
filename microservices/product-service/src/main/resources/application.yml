@@ -47,5 +47,13 @@ spring.rabbitmq:
 ---
 
 spring.profiles: docker
-spring.data.mongodb.host: mongodb
 server.port: 8080
+
+
+spring:
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: product-db
+      auto-index-creation: true

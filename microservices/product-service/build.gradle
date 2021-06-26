@@ -40,11 +40,9 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 	implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
-	implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.2.0'
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
-
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 	testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
 
