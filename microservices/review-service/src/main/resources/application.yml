@@ -54,6 +54,10 @@ spring.rabbitmq:
   username: guest
   password: guest
 
+
+
+management.endpoint.health.show-details: "ALWAYS"
+management.endpoints.web.exposure.include: "*"
 ---
 spring.profiles: docker
 server.port : 8080
