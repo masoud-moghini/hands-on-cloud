@@ -39,8 +39,7 @@ public class ProductCompositeServiceApplication {
 	@Value("${api.common.contact.url}") String apiContactUrl;
 	@Value("${api.common.contact.email}") String apiContactEmail;
 
-	@Autowired
-	HealthAggregator healthAggregator;
+
 
 	@Autowired
 	ProductCompositeIntegration integration;
@@ -72,7 +71,7 @@ public class ProductCompositeServiceApplication {
 		return new RestTemplate();
 	}
 
-	@Bean
+	/*@Bean
 	CompositeReactiveHealthIndicator coreServices(){
 		ReactiveHealthIndicatorRegistry registry = new
 				DefaultReactiveHealthIndicatorRegistry(new LinkedHashMap<>());
@@ -80,7 +79,7 @@ public class ProductCompositeServiceApplication {
 		registry.register("recommendation", () -> integration.getRecommendationHealth());
 		registry.register("review", () -> integration.getReviewHealth());
 		return new CompositeReactiveHealthIndicator(healthAggregator, registry);
-	}
+	}*/
 	public static void main(String[] args) {
 		SpringApplication.run(ProductCompositeServiceApplication.class, args);
 	}

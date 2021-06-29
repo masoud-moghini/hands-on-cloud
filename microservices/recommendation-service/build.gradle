@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.2.RELEASE'
+		springBootVersion = '2.5.1'
 		mapstructVersion = '1.4.2.Final'
 	}
 	repositories {
@@ -36,7 +36,6 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-	implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
 	implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')

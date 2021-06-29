@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.2.RELEASE'
+		springBootVersion = '2.5.1'
 		mapstructVersion = '1.4.2.Final'
 	}
 	repositories {
