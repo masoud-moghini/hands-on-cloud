@@ -66,8 +66,9 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
 
     @Autowired
     public ProductCompositeIntegration(
-        WebClient webClient,
+        WebClient.Builder webClient,
         ObjectMapper mapper,
+        MessageSources messageSources,
 
         @Value("${app.product-service.host}") String productServiceHost,
         @Value("${app.product-service.port}") int    productServicePort,
@@ -79,8 +80,9 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
         @Value("${app.review-service.port}") int    reviewServicePort
     ) {
 
-        this.webClient = webClient;
+        this.webClient = webClient.build();
         this.mapper = mapper;
+        this.messageSources = messageSources;
 
         productServiceUrl        = "http://" + productServiceHost + ":" + productServicePort + "/product/";
         recommendationServiceUrl = "http://" + recommendationServiceHost + ":" + recommendationServicePort + "/recommendation?productId=";

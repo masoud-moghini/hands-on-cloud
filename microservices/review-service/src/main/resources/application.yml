@@ -16,6 +16,14 @@ logging:
 
 
 
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: product-db
+      auto-index-creation: true
+
 spring.cloud.stream:
   defaultBinder: rabbit
   default.contentType: application/json

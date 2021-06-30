@@ -18,10 +18,10 @@ import se.magnus.util.http.ServiceUtil;
 public class ProductServiceImpl implements ProductService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
-
     private final ServiceUtil serviceUtil;
     private ProductRepository repository;
     private final ProductMapper mapper;
+
     @Autowired
     public ProductServiceImpl(
             ServiceUtil serviceUtil,
@@ -63,7 +63,6 @@ public class ProductServiceImpl implements ProductService {
             throw new InvalidInputException("Duplicate key, Product Id: " +
                     body.getProductId());
         }
-
     }
 
     @Override

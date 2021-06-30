@@ -42,7 +42,6 @@ dependencies {
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
-
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 	testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
 
