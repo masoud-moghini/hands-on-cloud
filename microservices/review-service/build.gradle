@@ -4,12 +4,14 @@ buildscript {
 		mapstructVersion = '1.4.2.Final'
 	}
 	repositories {
-		mavenCentral()
-		maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+
 	}
+}
+plugins {
+	id 'org.springframework.boot' version '2.5.0'
 }
 
 apply plugin: 'java'
