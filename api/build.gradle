@@ -1,10 +1,9 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.2.RELEASE'
+		springBootVersion = '2.5.1'
 	}
 	repositories {
 		mavenCentral()
-		maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")

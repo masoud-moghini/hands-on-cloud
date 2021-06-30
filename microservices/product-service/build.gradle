@@ -1,11 +1,10 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.2.RELEASE'
+		springBootVersion = '2.5.1'
 		mapstructVersion = '1.4.2.Final'
 	}
 	repositories {
 		mavenCentral()
-		maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -39,14 +38,13 @@ dependencies {
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-	implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+	implementation group: 'org.springframework.boot' , name :'spring-boot-starter-data-mongodb-reactive',version: springBootVersion
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 	testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
 
-	//testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('io.projectreactor:reactor-test')
 }

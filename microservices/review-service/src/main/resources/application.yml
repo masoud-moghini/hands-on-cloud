@@ -61,6 +61,7 @@ management.endpoints.web.exposure.include: "*"
 ---
 spring.profiles: docker
 server.port : 8080
+spring.rabbitmq.host: rabbitmq
 spring.datasource:
   url: jdbc:postgresql://postgres/review-db
   username: user
