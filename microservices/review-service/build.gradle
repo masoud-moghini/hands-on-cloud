@@ -28,7 +28,7 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "Hoxton.SR8")
+	set('springCloudVersion', "2020.0.3")
 }
 
 dependencies {
@@ -41,6 +41,7 @@ dependencies {
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
+	implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.5.1'

@@ -31,6 +31,21 @@ spring.cloud.stream:
     destination: products
     group: productsGroup
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    initialInstanceInfoReplicationIntervalSeconds: 5
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5
+
+ribbon.ServerListRefreshInterval: 5000
+ribbon.NFLoadBalancerPingInterval: 5
+
+
+
 spring.cloud.stream.bindings.input.consumer:
   maxAttempts: 3
   backOffInitialInterval: 500

@@ -1,7 +1,5 @@
 package se.magnus.microservices.core.product;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

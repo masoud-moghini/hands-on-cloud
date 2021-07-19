@@ -29,19 +29,21 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "Hoxton.SR8")
+	set('springCloudVersion', "2020.0.3")
 }
 dependencies {
 	implementation project(':api')
 	implementation project(':util')
 	implementation('org.springframework.boot:spring-boot-starter-actuator')
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+	implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 	implementation group: 'org.springframework.boot' , name :'spring-boot-starter-data-mongodb-reactive',version: springBootVersion
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
 	implementation('org.springframework.cloud:spring-cloud-starter-stream-kafka')
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+	// https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-commons
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 	testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
 

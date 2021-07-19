@@ -3,6 +3,7 @@ package se.magnus.microservices.composite.product.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
@@ -137,11 +138,18 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
         String url = productServiceUrl + productId;
         LOG.debug("Will call getProduct API on URL: {}", url);
 
-        Mono<Product> product = webClient.get().uri(url).retrieve().bodyToMono(Product.class).log()
+        Mono<Product> product = getWebClient().get().uri(url).retrieve().bodyToMono(Product.class).log()
                 .onErrorMap(WebClientResponseException.class, ex -> handleHttpClientException(ex));
 
         return product;
 
+    }
+
+    private WebClient getWebClient() {
+        if (this.webClient == null){
+            return WebClient.builder().build();
+        }
+        return this.webClient;
     }
 
     @Override
@@ -172,7 +180,7 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
     public Flux<Recommendation> getRecommendations(int productId) {
         String url = recommendationServiceUrl + "?productId=" + productId;
         LOG.debug("Will call the getRecommendations API on URL: {}", url);
-        Flux<Recommendation> recommendations = webClient.get().uri(url).retrieve().bodyToFlux(Recommendation.class)
+        Flux<Recommendation> recommendations = getWebClient().get().uri(url).retrieve().bodyToFlux(Recommendation.class)
                 .log()
                 .onErrorMap(WebClientResponseException.class,ex->handleHttpClientException(ex));
 
@@ -194,7 +202,7 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
     public Flux<Review> getReviews(int productId) {
             String url = reviewServiceUrl + productId;
             LOG.debug("Will call getReviews API on URL: {}", url);
-            Flux<Review> reviews = webClient.get().uri(url).retrieve().bodyToFlux(Review.class).onErrorResume(error -> empty());
+            Flux<Review> reviews = getWebClient().get().uri(url).retrieve().bodyToFlux(Review.class).onErrorResume(error -> empty());
 
             LOG.debug("Found {} reviews for a product with id: {}", reviews.count(), productId);
             return reviews;

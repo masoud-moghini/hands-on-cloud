@@ -97,7 +97,11 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-
+  eureka:
+    build: spring-cloud/eureka-server
+    mem_limit: 350m
+    ports:
+      - "8761:8761"
   product-composite:
     build: microservices/product-composite-service
     mem_limit: 350m
