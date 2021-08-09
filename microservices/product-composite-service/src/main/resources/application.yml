@@ -112,6 +112,9 @@ spring.rabbitmq:
   password: guest
 
 
+
+
+
 logging:
   level:
     root: INFO
