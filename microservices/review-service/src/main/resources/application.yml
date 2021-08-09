@@ -77,6 +77,8 @@ management.endpoints.web.exposure.include: "*"
 spring.profiles: docker
 server.port : 8080
 spring.rabbitmq.host: rabbitmq
+eureka.client.serviceUrl.defaultZone: http://eureka:8761/eureka/
+
 spring.datasource:
   url: jdbc:postgresql://postgres/review-db
   username: user

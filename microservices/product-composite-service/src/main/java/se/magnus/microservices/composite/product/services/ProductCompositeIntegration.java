@@ -40,13 +40,14 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
 
     private static final Logger LOG = LoggerFactory.getLogger(ProductCompositeIntegration.class);
 
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
     private final ObjectMapper mapper;
 
-    private final String productServiceUrl;
-    private final String recommendationServiceUrl;
-    private final String reviewServiceUrl;
+    private final String productServiceUrl = "http://product/";
+    private final String recommendationServiceUrl = "http://recommendation/";
+    private final String reviewServiceUrl = "http://review/";
 
+    private  WebClient webClient;
     private MessageSources messageSources;
     public interface MessageSources{
         String OUTPUT_PRODUCTS = "output-products";
@@ -69,25 +70,13 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
     public ProductCompositeIntegration(
         WebClient.Builder webClient,
         ObjectMapper mapper,
-        MessageSources messageSources,
+        MessageSources messageSources){
 
-        @Value("${app.product-service.host}") String productServiceHost,
-        @Value("${app.product-service.port}") int    productServicePort,
 
-        @Value("${app.recommendation-service.host}") String recommendationServiceHost,
-        @Value("${app.recommendation-service.port}") int    recommendationServicePort,
-
-        @Value("${app.review-service.host}") String reviewServiceHost,
-        @Value("${app.review-service.port}") int    reviewServicePort
-    ) {
-
-        this.webClient = webClient.build();
+        this.webClientBuilder = webClient;
         this.mapper = mapper;
         this.messageSources = messageSources;
 
-        productServiceUrl        = "http://" + productServiceHost + ":" + productServicePort + "/product/";
-        recommendationServiceUrl = "http://" + recommendationServiceHost + ":" + recommendationServicePort + "/recommendation?productId=";
-        reviewServiceUrl         = "http://" + reviewServiceHost + ":" + reviewServicePort + "/review?productId=";
     }
 
     public Mono<Health> getProductHealth() {return  getHealth(productServiceUrl);}
@@ -103,7 +92,7 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
     private Mono<Health> getHealth(String url) {
         url += "/actuator/health";
         LOG.debug("Will call the Health API on URL: {}", url);
-        return webClient.get().uri(url).retrieve().bodyToMono(String.class)
+        return getWebClient().get().uri(url).retrieve().bodyToMono(String.class)
                 .map(s -> new Health.Builder().up().build())
                 .onErrorResume(ex -> Mono.just(new Health.Builder().down(ex).build()))
                 .log();
@@ -135,7 +124,7 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
 
     public Mono<Product> getProduct(int productId) {
 
-        String url = productServiceUrl + productId;
+        String url = productServiceUrl +"/product/"+ productId;
         LOG.debug("Will call getProduct API on URL: {}", url);
 
         Mono<Product> product = getWebClient().get().uri(url).retrieve().bodyToMono(Product.class).log()
@@ -146,8 +135,8 @@ public class ProductCompositeIntegration implements RecommendationService ,Produ
     }
 
     private WebClient getWebClient() {
-        if (this.webClient == null){
-            return WebClient.builder().build();
+        if (webClient == null){
+            webClient = webClientBuilder.build();
         }
         return this.webClient;
     }
