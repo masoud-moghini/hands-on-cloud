@@ -7,9 +7,9 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mapstruct/mapstruct-processor/1.4.2.Final/e55bd90d51cddd638c07d5bd89fc7535d4e3d069/mapstruct-processor-1.4.2.Final.jar" />
         </processorPath>
-        <module name="hands-on-cloud.microservices.recommendation-service.main" />
-        <module name="hands-on-cloud.microservices.review-service.main" />
-        <module name="hands-on-cloud.microservices.product-service.main" />
+        <module name="Chapter03.microservices.product-service.main" />
+        <module name="Chapter03.microservices.recommendation-service.main" />
+        <module name="Chapter03.microservices.review-service.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8" />

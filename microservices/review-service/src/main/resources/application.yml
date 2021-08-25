@@ -15,6 +15,10 @@ logging:
 
 
 
+app:
+  eureka-username: u
+  eureka-password: p
+  eureka-server: localhost
 
 spring:
   data:
@@ -34,7 +38,7 @@ spring.cloud.stream:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: "http://${app.eureka-username}:${app.eureka-password}@${app.eureka-server}:8761/eureka/"
     initialInstanceInfoReplicationIntervalSeconds: 5
     registryFetchIntervalSeconds: 5
   instance:
@@ -77,7 +81,8 @@ management.endpoints.web.exposure.include: "*"
 spring.profiles: docker
 server.port : 8080
 spring.rabbitmq.host: rabbitmq
-eureka.client.serviceUrl.defaultZone: http://eureka:8761/eureka/
+
+app.eureka-server: eureka
 
 spring.datasource:
   url: jdbc:postgresql://postgres/review-db
